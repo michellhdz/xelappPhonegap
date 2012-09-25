@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html>
+   <head>
+        <noscript><b>JavaScript debe estar habilitado en su dispositivo</b></noscript>
+        <title>Xelapp</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">       
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+        <link rel="stylesheet" href="jquery.mobile-1.1.1.min.css" type="text/css" />        
+        <link rel="stylesheet" href="main.css" type="text/css">              
+    </head>
+
+    <body onload="initialize()">
+        <div id="negocios" data-role="page">                
+                  <div data-role="content" data-theme="a">                          
+                       <div id="logo">		    
+                  		   <figure><img style="heigh:128px; width:128px; margin:auto;" src="img/logo.png"/></figure>
+                       </div>                  
+                       <ul data-role="listview" id="empresasLista" data-inset="true" data-theme="a" data-divider-theme="f" data-filter="true">
+                              <li data-role="list-divider">Listado de Lugares</li>   
+	                   </ul>                     
+                    <div id="footer">
+                       &#169; Copyright 2012 Grupo Creatum
+                    </div>                    
+                  </div>               
+                  <div data-role="footer"  class="nav-glyphish" data-theme="d" data-position="fixed">		
+                      <div data-role="navbar" class="nav-glyphish"  data-grid="d">
+                          <ul>
+                             <li><a href="index.html" id="casa" data-icon="custom" data-ajax="false">Home</a></li>	
+                             <li><a href="mapageneral.html" id="map" data-icon="custom" data-ajax="false">Mapa</a></li>    
+			  			     <li><a href="turismo.html" id="turismo" data-icon="custom" data-ajax="false">Turismo</a></li>
+			  			     <li><a href="categoria.html" id="servicios" data-icon="custom" data-ajax="false">Servicios</a></li>
+			                 <li><a href="foros.html" id="foro" data-icon="custom" data-ajax="false">Foros</a></li>		   	  
+                          </ul>
+                      </div>
+                 </div>     
+              </div>
+              <script type="text/javascript" src="jquery-1.8.1.min.js"></script>
+              <script type="text/javascript" src="jquery.mobile-1.1.1.min.js"></script>
+              <script type="text/javascript">                 	             
+	            	function initialize() {        
+	            		var id = getUrlVars()["id"];            	
+	            		$.getJSON("http://gtmap.cloudfoundry.com/categoria/" + id, function(data) {
+	            			$('#empresasLista li').remove();   
+	            			$('#empresasLista').append('<li data-role="list-divider">Listado de Lugares</li>')
+	            			for(var i = 0 ; i < data.length ; i++)
+	            			{
+	            				$('#empresasLista').append('<li><a href="mostrarnegocio.html?id=' + data[i].id + '" data-ajax="false"><img src="http://dl.dropbox.com/u/107018845/' + data[i].negfotoportada + '"/><h3>' + data[i].negnombrenegocio + '</h3><p><strong>'+ data[i].negdescripcion +'</strong></p><p>' + data[i].negdireccion + '</p></a></li>');	            			
+	            			}         			
+	            			$('#empresasLista').listview('refresh');
+	            		});    
+	                }
+	            	
+	            	function getUrlVars() {
+	            	    var vars = [], hash;
+	            	    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+	            	    for(var i = 0; i < hashes.length; i++)
+	            	    {
+	            	        hash = hashes[i].split('=');
+	            	        vars.push(hash[0]);
+	            	        vars[hash[0]] = hash[1];
+	            	    }
+	            	    return vars;
+	            	}
+              </script>
+    </body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+
+<html>
+   <head>
+        <noscript><b>JavaScript debe estar habilitado en su dispositivo</b></noscript>
+        <title>Xelapp</title>
+      	<meta name = "viewport" content = "width=device-width, minimum-scale=1, maximum-scale=1">             
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+        <link rel="stylesheet" href="jquery.mobile-1.1.1.min.css" type="text/css" />      
+        <link rel ="stylesheet" media = "screen" href = "common.css" type="text/css"/>
+        <link rel="stylesheet" href="default.css" type="text/css" />    
+        <link rel="stylesheet" href="main.css" type="text/css">              
+    </head>
+
+    <body onload="initialize()">
+        <div id="negocio" data-role="page">                
+                  <div data-role="content" data-theme="a">                          
+                       <div id="logo">		    
+                  		   <figure><img style="heigh:128px; width:128px; margin:auto;" src="img/logo.png"/></figure>
+                       </div>       
+                       <h1 id="nombrenegocio"></h1>
+                       <p>&nbsp;</p>
+                       <p id="descripcionnegocio"><strong></strong></p>
+                       <p>&nbsp;</p>
+                       <p>Galeria</p>
+                       <p>&nbsp;</p>
+                       <div class = 'container'>			
+							<div class = 'iosSlider'>			
+								<div class = 'slider'>
+									<div class = 'item'>
+										<img id="imagenuno" />
+									</div>
+									<div class = 'item'>
+										<img id="imagendos" />
+									</div>
+									<div class = 'item'>
+										<img id="imagentres" />
+									</div>
+									<div class = 'item'>
+										<img id="imagencuatro" />
+									</div>				
+									<div class = 'item'>
+										<img id="imagencinco" />
+									</div>	
+									<div class = 'item'>
+										<img id="imagenseis" />
+									</div>	
+									<div class = 'item'>
+										<img id="imagensiete" />
+									</div>	
+									<div class = 'item'>
+										<img id="imagenocho" />
+									</div>	
+									<div class = 'item'>
+										<img id="imagennueve" />
+									</div>	
+									<div class = 'item'>
+										<img id="imagendiez" />
+									</div>	
+								</div>		
+								<div class = 'iosSliderButtons'>
+									<div class = 'button'></div>
+									<div class = 'button'></div>
+									<div class = 'button'></div>
+									<div class = 'button'></div>
+									<div class = 'button'></div>
+									<div class = 'button'></div>
+									<div class = 'button'></div>
+									<div class = 'button'></div>
+									<div class = 'button'></div>
+									<div class = 'button'></div>
+								</div>	
+							</div>						
+					   </div>  
+					   <p>&nbsp;</p>
+					   <p id="negociohistoria"></p>  
+					   <p>&nbsp;</p>					   
+					   <p>Mapa</p>
+					   <p>&nbsp;</p>					   
+					   <a href="mapasitio.html" id="enlacenegocio"  data-ajax="false" data-role="button">Ver mapa</a>                   
+                       <p>&nbsp;</p>
+					   <p>&nbsp;</p>
+                       <div id="footer">
+                          &#169; Copyright 2012 Grupo Creatum
+                       </div>                    
+                  </div>               
+                  <div data-role="footer"  class="nav-glyphish" data-theme="d" data-position="fixed">		
+                      <div data-role="navbar" class="nav-glyphish"  data-grid="d">
+                          <ul>
+                             <li><a href="index.html" id="casa" data-icon="custom" data-ajax="false">Home</a></li>	
+                             <li><a href="mapageneral.html" id="map" data-icon="custom" data-ajax="false">Mapa</a></li>    
+			  			     <li><a href="turismo.html" id="turismo" data-icon="custom" data-ajax="false">Turismo</a></li>
+			  			     <li><a href="categoria.html" id="servicios" data-icon="custom" data-ajax="false">Servicios</a></li>
+			                 <li><a href="foros.html" id="foro" data-icon="custom" data-ajax="false">Foros</a></li>		   	  
+                          </ul>
+                      </div>
+                 </div>     
+              </div>
+              <script type="text/javascript" src="jquery-1.8.1.min.js"></script>
+              <script type="text/javascript" src="jquery.mobile-1.1.1.min.js"></script>
+              <script type="text/javascript" src = "jquery.easing-1.3.js"></script>		
+		  	  <script type="text/javascript" src = "jquery.iosslider.js"></script>
+		  	  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+              <script type="text/javascript">                 	             
+	            	function initialize() {        
+	            		var id = getUrlVars()["id"];     
+	            		var map;
+	            		
+	        			$('.iosSlider').iosSlider({
+	        					snapToChildren: true,
+	        					desktopClickDrag: true,
+	        					scrollbar: true,
+	        					scrollbarLocation: 'top',
+	        					scrollbarMargin: '10px 10px 0 10px',
+	        					scrollbarBorderRadius: '0',
+	        					navSlideSelector: $('.iosSliderButtons .button'),	        		
+	        					onSlideChange: slideContentChange
+	        			});        			 
+	        				        			
+	            		$.getJSON("http://gtmap.cloudfoundry.com/sitio/" + id, function(data) {	            	
+	            			$('#nombrenegocio').text(data.turnombrelugar);
+	            			$('#descripcionnegocio').text(data.turatraccion);
+	            			$('#imagenuno').attr('src', 'http://dl.dropbox.com/u/107018845/'  + data.turfotoportada );
+	            			$('#imagendos').attr('src', 'http://dl.dropbox.com/u/107018845/'  + data.turfotoportadados );
+	            			$('#imagentres').attr('src', 'http://dl.dropbox.com/u/107018845/'  + data.turfotoportadatres);
+	            			$('#imagencuatro').attr('src', 'http://dl.dropbox.com/u/107018845/'  + data.turfotoportadacuatro);
+	            			$('#imagencinco').attr('src', 'http://dl.dropbox.com/u/107018845/'  + data.turfotoportadacinco);
+	            			$('#imagenseis').attr('src', 'http://dl.dropbox.com/u/107018845/'  + data.turfotoportadaseis);
+	            			$('#imagensiete').attr('src', 'http://dl.dropbox.com/u/107018845/'  + data.turfotoportadasiete);
+	            			$('#imagenocho').attr('src', 'http://dl.dropbox.com/u/107018845/'  + data.turfotoportadaocho);
+	            			$('#imagennueve').attr('src', 'http://dl.dropbox.com/u/107018845/'  + data.turfotoportadanueve);
+	            			$('#imagendiez').attr('src', 'http://dl.dropbox.com/u/107018845/'  + data.turfotoportadadiez);
+	            			$('#negociohistoria').text(data.turhistoria);
+	            			document.getElementById('enlacenegocio').href += '?id=' + id;	            			
+	            		});    
+	                }
+	            	
+	            	function slideContentChange(args) {					
+						$(args.sliderObject).parent().find('.iosSliderButtons .button').removeClass('selected');
+						$(args.sliderObject).parent().find('.iosSliderButtons .button:eq(' + args.currentSlideNumber + ')').addClass('selected');
+					}            		            	
+	               
+	            	
+	            	function getUrlVars() {
+	            	    var vars = [], hash;
+	            	    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+	            	    for(var i = 0; i < hashes.length; i++)
+	            	    {
+	            	        hash = hashes[i].split('=');
+	            	        vars.push(hash[0]);
+	            	        vars[hash[0]] = hash[1];
+	            	    }
+	            	    return vars;
+	            	}
+              </script>
+    </body>
+</html>
